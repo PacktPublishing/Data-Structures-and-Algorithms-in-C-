@@ -48,6 +48,59 @@ With the following software and hardware list you can run all code files present
 | 1-22 | C++ | Windows, Mac OS X, and Linux (Any) |
 | 1-22 | C++ STL | Windows, Mac OS X, and Linux (Any) |
 
+
+## Errata
+* Page 14 (code block 2):
+  ```
+   #include <iostream>
+   #include <vector>
+   int main() {
+     std::vector<int> numbers = {10, 20, 30, 40, 50};
+     try {
+       const auto secondElement = numbers.at(1);
+       std::cout << "The second element is: " << secondElement
+       << "\n";
+     } catch (const std::out_of_range &e) {
+     std::cerr << "Error: " << e.what() << "\n";
+    }
+     try {
+       const auto outOfBoundsElement = numbers.at(10);
+       std::cout << "Accessing an out-of-bounds index: "
+         << outOfBoundsElement << "\n";
+         } catch (const std::out_of_range &e) {
+         std::cerr << "Error: " << e.what() << "\n";
+        }
+     return 0;
+    }
+  ```
+  _should be_
+  
+  ```
+  #include
+  #include
+  int main()
+  {
+    std::vector numbers = { 10, 20, 30, 40, 50 };
+    try {
+    const auto secondElement = numbers.at(1);
+    std::cout << "The second element is: " << secondElement << "\n";
+  }
+  catch (const std::out_of_range& e) {
+    std::cerr << "Error: " << e.what() << "\n";
+  }
+
+  try {
+    // This will throw an exception because there are only 5 elements.
+    const auto outOfBoundsElement = numbers.at(10);
+   }
+  catch (const std::out_of_range& e) {
+    std::cerr << "Error: " << e.what() << "\n";
+  }
+
+  return 0;
+  }
+  ```
+
 ### Related products
 * Hands-On Design Patterns with C++ Second Edition [[Packt]](https://www.packtpub.com/product/hands-on-design-patterns-with-c-second-edition/9781804611555?utm_source=github&utm_medium=repository&utm_campaign=9781804611555) [[Amazon]](https://www.amazon.com/dp/1804611557)
 
